@@ -26,7 +26,6 @@ class TokenizationModuleInputData {
   String? customerId;
   GooglePayParameters googlePayParameters;
   bool googlePayTestEnvironment;
-  String? applePayID;
 
   TokenizationModuleInputData(
       {required this.clientApplicationKey,
@@ -47,8 +46,7 @@ class TokenizationModuleInputData {
       this.applicationScheme,
       this.customerId,
       this.googlePayParameters = const GooglePayParameters(),
-      this.googlePayTestEnvironment = false,
-      this.applePayID});
+      this.googlePayTestEnvironment = false});
 
   Map<String, dynamic> toJson() => {
         'clientApplicationKey': clientApplicationKey,
@@ -60,7 +58,6 @@ class TokenizationModuleInputData {
         'gatewayId': gatewayId,
         'tokenizationSettings': tokenizationSettings.toJson(),
         'testModeSettings': testModeSettings?.toJson(),
-        'applePayMerchantIdentifier': applePayID,
         'shopId': shopId,
         'returnUrl': returnUrl,
         'isLoggingEnabled': isLoggingEnabled,

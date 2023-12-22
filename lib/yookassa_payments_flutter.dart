@@ -29,9 +29,14 @@ class YookassaPaymentsFlutter {
         .then((value) => TokenizationResult.fromJson(json.decode(value)));
   }
 
-  static Future<void> confirmation(
-      String url, PaymentMethod? paymentMethod, String? clientApplicationKey) async {
-    var inputData = {'url': url, 'paymentMethod': paymentMethod?.name, 'clientApplicationKey': clientApplicationKey};
+  static Future<void> confirmation(String url, PaymentMethod? paymentMethod,
+      String? clientApplicationKey, String? shopId) async {
+    var inputData = {
+      'url': url,
+      'paymentMethod': paymentMethod?.name,
+      'clientApplicationKey': clientApplicationKey,
+      'shopId': shopId
+    };
     return await _channel.invokeMethod('confirmation', inputData);
   }
 

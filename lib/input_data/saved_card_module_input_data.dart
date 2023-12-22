@@ -20,7 +20,6 @@ class SavedBankCardModuleInputData {
   String? customerId;
   bool isSafeDeal;
   HostParameters? hostParameters;
-  String? applePayID;
 
   SavedBankCardModuleInputData(
       {required this.clientApplicationKey,
@@ -37,8 +36,7 @@ class SavedBankCardModuleInputData {
       this.isLoggingEnabled = false,
       this.customizationSettings = const CustomizationSettings(),
       this.customerId,
-      this.hostParameters,
-      this.applePayID});
+      this.hostParameters});
 
   Map<String, dynamic> toJson() => {
         'clientApplicationKey': clientApplicationKey,
@@ -48,7 +46,6 @@ class SavedBankCardModuleInputData {
         'savePaymentMethod': savePaymentMethod.toString(),
         'gatewayId': gatewayId,
         'testModeSettings': testModeSettings?.toJson(),
-        'applePayMerchantIdentifier': applePayID,
         'shopId': shopId,
         'returnUrl': returnUrl,
         'isLoggingEnabled': isLoggingEnabled,

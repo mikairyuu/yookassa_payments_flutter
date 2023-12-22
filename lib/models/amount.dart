@@ -1,7 +1,7 @@
 import 'currency.dart';
 
 class Amount {
-  double value;
+  String value;
   Currency currency;
 
   Amount({required this.value, required this.currency});

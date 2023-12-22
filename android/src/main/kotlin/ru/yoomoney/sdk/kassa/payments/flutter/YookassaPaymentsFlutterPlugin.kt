@@ -79,13 +79,15 @@ class YookassaPaymentsFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityA
     }
 
     val url = data["url"] as String
-    val clientApplicationKey = data["clientApplicationKey"] as String?
+    val clientApplicationKey = data["clientApplicationKey"] as String
+    val shopId = data["shopId"] as String
 
     val intent: Intent = Checkout.createConfirmationIntent(
       context = context,
       confirmationUrl = url,
       clientApplicationKey = clientApplicationKey,
-      paymentMethodType = paymentMethod
+      paymentMethodType = paymentMethod,
+      shopId = shopId
     )
 
     activity.startActivityForResult(intent, REQUEST_CODE_CONFIRMATION)
@@ -173,7 +175,7 @@ class YookassaPaymentsFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityA
 
 private fun PaymentParameters(data: Map<String, Object>): PaymentParameters {
   val amountMap: HashMap<String, Object> = data["amount"] as HashMap<String, Object>
-  val amount = Amount(BigDecimal(amountMap["value"] as Double), Currency.getInstance(amountMap["currency"] as String))
+  val amount = Amount(BigDecimal(amountMap["value"] as String), Currency.getInstance(amountMap["currency"] as String))
 
   val clientApplicationKey = data["clientApplicationKey"] as String
   val title = data["title"] as String
@@ -242,7 +244,7 @@ private fun GooglePayParameters(data: Map<String, Object>): GooglePayParameters 
 
 private fun SavedBankCardPaymentParameters(data: Map<String, Object>): SavedBankCardPaymentParameters {
   val amountMap: HashMap<String, Object> = data["amount"] as HashMap<String, Object>
-  val amount = Amount(BigDecimal(amountMap["value"] as Double), Currency.getInstance(amountMap["currency"] as String))
+  val amount = Amount(BigDecimal(amountMap["value"] as String), Currency.getInstance(amountMap["currency"] as String))
   val title = data["title"] as String
   val subtitle = data["subtitle"] as String
   val clientApplicationKey = data["clientApplicationKey"] as String

@@ -28,6 +28,11 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>yoomoneyauth</string>
+        <string>sberpay</string>
+    </array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

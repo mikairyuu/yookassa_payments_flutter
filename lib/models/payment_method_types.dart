@@ -12,18 +12,12 @@ class PaymentMethodTypes {
       PaymentMethodTypes([PaymentMethod.yooMoney]);
   static const PaymentMethodTypes sberbank =
       PaymentMethodTypes([PaymentMethod.sberbank]);
-  static const PaymentMethodTypes applePay =
-      PaymentMethodTypes([PaymentMethod.applePay]);
-  static const PaymentMethodTypes googlePay =
-      PaymentMethodTypes([PaymentMethod.googlePay]);
   static const PaymentMethodTypes sbp =
       PaymentMethodTypes([PaymentMethod.sbp]);
   static const PaymentMethodTypes all = PaymentMethodTypes([
     PaymentMethod.bankCard,
     PaymentMethod.yooMoney,
     PaymentMethod.sberbank,
-    PaymentMethod.applePay,
-    PaymentMethod.googlePay,
     PaymentMethod.sbp
   ]);
 }
@@ -39,10 +33,6 @@ extension PaymentMethodExtension on PaymentMethod {
         return PaymentMethod.yooMoney;
       case 'sberbank':
         return PaymentMethod.sberbank;
-      case 'apple_pay':
-        return PaymentMethod.applePay;
-      case 'google_pay':
-        return PaymentMethod.googlePay;
       case 'sbp':
         return PaymentMethod.sbp;
     }

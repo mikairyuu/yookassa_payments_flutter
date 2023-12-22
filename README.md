@@ -46,14 +46,16 @@ source 'https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git'
 </array>
 ```
 
-Решение проблем подключения:
+## Решение проблем подключения/сборки
 
-А. В случае когда `pod install` завершается с ошибкой – попробуйте команду `pod update YooKassaPayments`
+1. pod install` завершается с ошибкой
 
-B. В некоторых сложных случаях рекомендуем сбросить кэш cocoapods. Это можно сделать несколькими способам.
+* Попробуйте команду `pod update YooKassaPayments`
+
+* В некоторых сложных случаях рекомендуем сбросить кэш cocoapods. Это можно сделать несколькими способам.
 
    Вариант 1: выполнить набор команд для сброса кэша для пода YooKassaPayments и его зависимостей:
-               ```
+               ```bash
                pod cache clean FunctionalSwift --all
                pod cache clean MoneyAuth  --all
                pod cache clean ThreatMetrixAdapter  --all
@@ -69,6 +71,11 @@ B. В некоторых сложных случаях рекомендуем с
               
    Далее рекомендуем выполнить `flutter clean`, `pod clean` и `pod deintegrate YOUR_PROJECT_NAME.xcodeproj`
    для последущей чистой установки командой `pod install`
+   
+2. При сборке получили ошибку `xcode no such module '__ObjC'`
+
+* Откройте ios проект в Xcode, выберите target `Runner`, перейдите в найтройки Build Settings и выставьте флаг `Build Libraries for Distribution` в `NO`. Для project `Runner` проделайте тоже самое — Project Runner -> Build Settings -> установите Build Libraries for Distribution в NO.
+Далее в Xcode Product -> Clean build folder.., и также очистите содержимое DerivedData
 
 ## Быстрая интеграция
 
@@ -101,8 +108,10 @@ var result = await YookassaPaymentsFlutter.tokenization(tokenizationModuleInputD
 
 ```dart
 var result = await YookassaPaymentsFlutter.tokenization(tokenizationModuleInputData);
-var token = result.token;
-var paymentMethodType = result.paymentMethodType;
+if (result is SuccessTokenizationResult) {
+    var token = result.token;
+    var paymentMethodType = result.paymentMethodType;
+}
 ```
 
 4. Закройте модуль SDK и отправьте токен в вашу систему. Затем [создайте платеж](https://yookassa.ru/developers/api#create_payment) по API ЮKassa, в параметре `payment_token` передайте токен, полученный в SDK. Способ подтверждения при создании платежа зависит от способа оплаты, который выбрал пользователь. Он приходит вместе с токеном в `paymentMethodType`.
@@ -110,7 +119,10 @@ var paymentMethodType = result.paymentMethodType;
 5. Подтверждение платежа. При необходимости система может запросить процесс подтверждения платежа, при котором пользователь подтверждает транзакцию с помощью сторонних сервисов. Плагин поддерживает два типа подтверждения платежа - 3Dsecure (при оплате банковской картой) и App2App сценарий (при оплате через SberPay). Ссылку вы получаете от бекенда Кассы после проведения платежа на шаге 4.
 
 ```dart
-await YookassaPaymentsFlutter.confirmation("3ds / App2App ссылка", result.paymentMethodType);
+var clientApplicationKey = "<Ключ для клиентских приложений>";
+var shopId = "<Идентификатор магазина в ЮKassa)>";
+
+await YookassaPaymentsFlutter.confirmation(confirmationUrl, PaymentMethod.sbp, clientApplicationKey, shopId);
 // обработайте результат подтверждения на следущей строке (после возврата управления)
 ```
 Завершение процесса `YookassaPaymentsFlutter.confirmation` не несет информацию о том, что пользователь фактически подтвердил платеж (он мог его пропустить). После получения результата рекомендуем запросить статус платежа.
@@ -122,8 +134,6 @@ await YookassaPaymentsFlutter.confirmation("3ds / App2App ссылка", result.
 `.yooMoney` — ЮMoney (платежи из кошелька или привязанной картой)\
 `.bankCard` — банковская карта (карты можно сканировать)\
 `.sberbank` — SberPay (с подтверждением через приложение Сбербанк Онлайн, если оно установленно, иначе с подтверждением по смс)\
-`.applePay` — Apple Pay\
-`.googlePay` — Google Pay
 `.sbp` - СБП\
 
 ## Настройка способов оплаты
@@ -151,16 +161,6 @@ if (<Условие для Сбербанка Онлайн>) {
 if (<Условие для ЮMoney>) {
     // Добавляем в paymentMethodTypes элемент `PaymentMethod.yooMoney`
     paymentMethodTypes.add(PaymentMethod.yooMoney);
-}
-
-if <Условие для Apple Pay> {
-    // Добавляем в paymentMethodTypes элемент `.applePay`
-    paymentMethodTypes.insert(.applePay)
-}
-
-if <Условие для Google Pay> {
-    // Добавляем в paymentMethodTypes элемент `.googlePay`
-    paymentMethodTypes.insert(.googlePay)
 }
 
 if <Условие для СБП> {
@@ -437,8 +437,9 @@ android {
 
 ```dart
 var clientApplicationKey = "<Ключ для клиентских приложений>";
+var shopId = "<Идентификатор магазина в ЮKassa)>";
 
-await YookassaPaymentsFlutter.confirmation(confirmationUrl, PaymentMethod.sbp, clientApplicationKey);
+await YookassaPaymentsFlutter.confirmation(confirmationUrl, PaymentMethod.sbp, clientApplicationKey, shopId);
 )
 ```
 `confirmationUrl` вы получите в ответе от API ЮKassa при [создании платежа](https://yookassa.ru/developers/api#create_payment); он имеет вид   "https://qr.nspk.ru/id?type=&bank=&sum=&cur=&crc=&payment_id="
@@ -535,8 +536,8 @@ func didFinishConfirmation(paymentMethodType: PaymentMethodType) {
 ### Amount
 
 | Параметр | Тип      | Описание |
-| -------- | -------- | -------- |
-| value    | Double   | Сумма платежа |
+| -------- |----------| -------- |
+| value    | String   | Сумма платежа |
 | currency | Currency | Валюта платежа |
 
 ### Currency
@@ -566,12 +567,15 @@ func didFinishConfirmation(paymentMethodType: PaymentMethodType) {
 
 Если вы хотите использовать нашу реализацию подтверждения платежа, не закрывайте модуль SDK после получения токена.\
 Отправьте токен на ваш сервер и после успешной оплаты закройте модуль.\
-Если ваш сервер сообщил о необходимости подтверждения платежа (т.е. платёж пришёл со статусом `pending`), вызовите метод `confirmation(confirmationUrl, paymentMethodType)`.
+Если ваш сервер сообщил о необходимости подтверждения платежа (т.е. платёж пришёл со статусом `pending`), вызовите метод `confirmation(confirmationUrl, paymentMethodType, clientApplicationKey, shopId)`.
 
 Пример кода:
 
 ```dart
-await YookassaPaymentsFlutter.confirmation(confirmationUrl, result.paymentMethodType);
+var clientApplicationKey = "<Ключ для клиентских приложений>";
+var shopId = "<Идентификатор магазина в ЮKassa)>";
+
+await YookassaPaymentsFlutter.confirmation(confirmationUrl, PaymentMethod.sbp, clientApplicationKey, shopId);
 )
 ```
 
@@ -582,8 +586,9 @@ await YookassaPaymentsFlutter.confirmation(confirmationUrl, result.paymentMethod
 ```dart
 
 var clientApplicationKey = "<Ключ для клиентских приложений>";
+var shopId = "<Идентификатор магазина в ЮKassa)>";
 
-await YookassaPaymentsFlutter.confirmation(confirmationUrl, result.paymentMethodType, clientApplicationKey);
+await YookassaPaymentsFlutter.confirmation(confirmationUrl, result.paymentMethodType, clientApplicationKey, shopId);
 )
 ```
 `confirmationUrl` вы получите в ответе от API ЮKassa при [создании платежа](https://yookassa.ru/developers/api#create_payment); он имеет вид   "https://qr.nspk.ru/id?type=&bank=&sum=&cur=&crc=&payment_id="

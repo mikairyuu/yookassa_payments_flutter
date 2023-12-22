@@ -45,8 +45,7 @@ class TokenizationScreenState extends State<TokenizationScreen> {
 
   void startTokenization() async {
     var clientApplicationKey = "<Ключ для клиентских приложений>";
-    var amount =
-        Amount(value: double.parse(controller.text), currency: Currency.rub);
+    var amount = Amount(value: controller.text, currency: Currency.rub);
     var moneyAuthClientId = "<ID для центра авторизации в системе YooMoney>";
     var shopId = "<Идентификатор магазина в ЮKassa>";
     var applicationScheme = "<Схема вашего приложения для deeplink>" "://";

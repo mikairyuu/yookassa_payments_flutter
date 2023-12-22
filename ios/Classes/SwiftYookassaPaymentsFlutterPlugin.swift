@@ -201,6 +201,7 @@ extension TokenizationModuleInputData: Decodable {
     enum CodingKeys: String, CodingKey {
         case clientApplicationKey = "clientApplicationKey"
         case shopName = "title"
+        case shopId = "shopId"
         case purchaseDescription = "subtitle"
         case amount = "amount"
         case savePaymentMethod = "savePaymentMethod"
@@ -223,6 +224,7 @@ extension TokenizationModuleInputData: Decodable {
 
         let clientApplicationKey = try values.decode(String.self, forKey: .clientApplicationKey)
         let shopName = try values.decode(String.self, forKey: .shopName)
+        let shopId = try values.decode(String.self, forKey: .shopId)
         let purchaseDescription = try values.decode(String.self, forKey: .purchaseDescription)
         let amount = try values.decode(Amount.self, forKey: .amount)
         let gatewayId = try? values.decode(String.self, forKey: .gatewayId)
@@ -258,6 +260,7 @@ extension TokenizationModuleInputData: Decodable {
         self.init(
             clientApplicationKey: clientApplicationKey,
             shopName: shopName,
+            shopId: shopId,
             purchaseDescription: purchaseDescription,
             amount: amount,
             gatewayId: gatewayId,
@@ -343,9 +346,10 @@ extension Amount: Decodable {
     public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        let value = try values.decode(Double.self, forKey: .value)
+        let stringValue = try values.decode(String.self, forKey: .value)
+        guard let decimalValue = Decimal(string: stringValue) else { throw CommonError.decodingError }
         let currency = try values.decode(String.self, forKey: .currency)
-        self.init(value: Decimal(value), currency: .custom(currency))
+        self.init(value: decimalValue, currency: .custom(currency))
     }
 }
 
@@ -426,6 +430,10 @@ extension CustomizationSettings: Decodable {
                     showYooKassaLogo: showYooKassaLogo
         )
     }
+}
+
+public enum CommonError: Error {
+    case decodingError
 }
 
 struct Color: Decodable {
