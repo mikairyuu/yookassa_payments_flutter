@@ -1,42 +1,102 @@
 PODS:
+  - AppMetrica_FMDB (5.2.0)
+  - AppMetrica_Protobuf (5.2.0)
+  - AppMetricaAdSupport (5.2.0):
+    - AppMetricaCore (= 5.2.0)
+    - AppMetricaCoreExtension (= 5.2.0)
+  - AppMetricaAnalytics (5.2.0):
+    - AppMetricaAdSupport (= 5.2.0)
+    - AppMetricaCore (= 5.2.0)
+    - AppMetricaCrashes (= 5.2.0)
+    - AppMetricaWebKit (= 5.2.0)
+  - AppMetricaCore (5.2.0):
+    - AppMetrica_FMDB (= 5.2.0)
+    - AppMetrica_Protobuf (= 5.2.0)
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaEncodingUtils (= 5.2.0)
+    - AppMetricaHostState (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+    - AppMetricaNetwork (= 5.2.0)
+    - AppMetricaPlatform (= 5.2.0)
+    - AppMetricaProtobufUtils (= 5.2.0)
+    - AppMetricaStorageUtils (= 5.2.0)
+  - AppMetricaCoreExtension (5.2.0):
+    - AppMetricaCore (= 5.2.0)
+    - AppMetricaStorageUtils (= 5.2.0)
+  - AppMetricaCoreUtils (5.2.0):
+    - AppMetricaLog (= 5.2.0)
+  - AppMetricaCrashes (5.2.0):
+    - AppMetricaCore (= 5.2.0)
+    - AppMetricaCoreExtension (= 5.2.0)
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaEncodingUtils (= 5.2.0)
+    - AppMetricaHostState (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+    - AppMetricaPlatform (= 5.2.0)
+    - AppMetricaProtobufUtils (= 5.2.0)
+    - AppMetricaStorageUtils (= 5.2.0)
+    - KSCrash/Recording (= 1.17.0)
+    - KSCrash/Recording/Tools
+  - AppMetricaEncodingUtils (5.2.0):
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+    - AppMetricaPlatform (= 5.2.0)
+  - AppMetricaHostState (5.2.0):
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+  - AppMetricaLog (5.2.0)
+  - AppMetricaNetwork (5.2.0):
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+    - AppMetricaPlatform (= 5.2.0)
+  - AppMetricaPlatform (5.2.0):
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+  - AppMetricaProtobufUtils (5.2.0):
+    - AppMetrica_Protobuf (= 5.2.0)
+  - AppMetricaStorageUtils (5.2.0):
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
+  - AppMetricaWebKit (5.2.0):
+    - AppMetricaCore (= 5.2.0)
+    - AppMetricaCoreUtils (= 5.2.0)
+    - AppMetricaLog (= 5.2.0)
   - Flutter (1.0.0)
-  - FunctionalSwift (2.0.6)
-  - MobileSdk (2.0.0)
-  - MoneyAuth (10.2.1):
+  - FMobileSdk (2.0.0.1230)
+  - FunctionalSwift (2.0.7)
+  - KSCrash/Recording (1.17.0):
+    - KSCrash/Recording/Tools (= 1.17.0)
+  - KSCrash/Recording/Tools (1.17.0)
+  - MoneyAuth (10.13.0):
+    - FMobileSdk
     - FunctionalSwift (~> 2.0)
-    - YooMoneyCoreApi (~> 3.0)
+    - YooMoneyCoreApi (~> 3.1)
     - YooMoneySessionProfiler (~> 5.0)
-    - YooMoneyUI (~> 7.0)
+    - YooMoneyUI (~> 7.7)
   - SPaySDK (1.0.9)
-  - YandexMobileMetrica/Dynamic (4.5.2):
-    - YandexMobileMetrica/Dynamic/Core (= 4.5.2)
-    - YandexMobileMetrica/Dynamic/Crashes (= 4.5.2)
-  - YandexMobileMetrica/Dynamic/Core (4.5.2)
-  - YandexMobileMetrica/Dynamic/Crashes (4.5.2):
-    - YandexMobileMetrica/Dynamic/Core
-  - yookassa_payments_flutter (0.0.1):
+  - yookassa_payments_flutter (1.3.1):
     - Flutter
-    - YooKassaPayments (= 6.14.0)
-  - YooKassaPayments (6.14.0):
-    - MoneyAuth (~> 10.2.1)
+    - YooKassaPayments (= 6.16.0)
+  - YooKassaPayments (6.16.0):
+    - AppMetricaAnalytics (~> 5.2.0)
+    - MoneyAuth (~> 10.13.0)
     - SPaySDK (~> 1.0.8)
-    - YandexMobileMetrica/Dynamic (>= 3.0)
-    - YooKassaPaymentsApi (~> 2.21.2)
-    - YooKassaWalletApi (~> 2.3.1)
-    - YooMoneyCoreApi (~> 3.0)
-    - YooMoneySessionProfiler (~> 5.0.1)
-    - YooMoneyUI (~> 7.3.1)
-  - YooKassaPaymentsApi (2.21.3):
+    - YooKassaPaymentsApi (~> 2.22.0)
+    - YooKassaWalletApi (~> 2.6.0)
+    - YooMoneyCoreApi (~> 3.1)
+    - YooMoneySessionProfiler (~> 5.0.4)
+    - YooMoneyUI (~> 7.7)
+  - YooKassaPaymentsApi (2.22.0):
     - FunctionalSwift
-    - YooMoneyCoreApi (~> 3.0)
-  - YooKassaWalletApi (2.3.2):
+    - YooMoneyCoreApi (~> 3.1.1)
+  - YooKassaWalletApi (2.6.0):
     - FunctionalSwift
     - YooMoneyCoreApi
-  - YooMoneyCoreApi (3.0.7):
+  - YooMoneyCoreApi (3.1.1):
     - FunctionalSwift (~> 2.0)
-  - YooMoneySessionProfiler (5.0.1):
-    - MobileSdk (~> 2.0)
-  - YooMoneyUI (7.3.2):
+  - YooMoneySessionProfiler (5.0.4):
+    - FMobileSdk
+  - YooMoneyUI (7.7.5):
     - FunctionalSwift
 
 DEPENDENCIES:
@@ -45,8 +105,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git:
+    - FMobileSdk
     - FunctionalSwift
-    - MobileSdk
     - MoneyAuth
     - YooKassaPayments
     - YooKassaPaymentsApi
@@ -55,8 +115,24 @@ SPEC REPOS:
     - YooMoneySessionProfiler
     - YooMoneyUI
   https://github.com/CocoaPods/Specs.git:
+    - AppMetrica_FMDB
+    - AppMetrica_Protobuf
+    - AppMetricaAdSupport
+    - AppMetricaAnalytics
+    - AppMetricaCore
+    - AppMetricaCoreExtension
+    - AppMetricaCoreUtils
+    - AppMetricaCrashes
+    - AppMetricaEncodingUtils
+    - AppMetricaHostState
+    - AppMetricaLog
+    - AppMetricaNetwork
+    - AppMetricaPlatform
+    - AppMetricaProtobufUtils
+    - AppMetricaStorageUtils
+    - AppMetricaWebKit
+    - KSCrash
     - SPaySDK
-    - YandexMobileMetrica
 
 EXTERNAL SOURCES:
   Flutter:
@@ -65,20 +141,36 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/yookassa_payments_flutter/ios"
 
 SPEC CHECKSUMS:
+  AppMetrica_FMDB: 86a7247cecf4b315735b119f8547779bffca535a
+  AppMetrica_Protobuf: 326de64e6b52ab2cddce121c780461ac9eedb6c4
+  AppMetricaAdSupport: 1ebdf7d6f4555675aa776fb7fee5bd96ebef1dcf
+  AppMetricaAnalytics: bebf8c4f75c5015937b3e51f878b30693d293944
+  AppMetricaCore: 647efed7efaa8fad9e38aa417d95aeccaf8b0926
+  AppMetricaCoreExtension: 2b93264b869438d890df5bf6a69407fce5542e1c
+  AppMetricaCoreUtils: f6b3cfde963e1027e3044630e2fd7e1007422c1b
+  AppMetricaCrashes: f096e2cee83a46769685b850df846f5822c81b24
+  AppMetricaEncodingUtils: 3b7d0aafefbc9a0ae84515a4b381d0a576f944f2
+  AppMetricaHostState: 280370ecaf3096d4ff313bb7c13fb13252ae99e7
+  AppMetricaLog: 7f5b21edad9e93e12d5d8e2aeafd17cbc2befb2b
+  AppMetricaNetwork: 070f7ce9fcad0e97d762d76ed7616236f9c73417
+  AppMetricaPlatform: 36742fdd5e4290ab923cf5ede28612dae96a6671
+  AppMetricaProtobufUtils: 37f172ca2fffacba2f0d564308c873bba4726b88
+  AppMetricaStorageUtils: 4de179f2354946734cc7c407322398f5276e3305
+  AppMetricaWebKit: 271bdf19ac5473df925213ec80d330805ed96818
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  FunctionalSwift: f812f61d24f78fdac9fb361f26c7f21acc337c91
-  MobileSdk: 827ec8a9ef58a60f35e920cebaecf74f20a250c4
-  MoneyAuth: 47daad5ba74241b1a8ebae3b0ea4eb6600867939
+  FMobileSdk: 8c49b5c8207eb4b92df761bbf16486f03bdac6ac
+  FunctionalSwift: 89f68db7d8cf103a4dc0878fbaa007a2a5532485
+  KSCrash: 593ec373759e4c1bce381421a627326a20d2dc66
+  MoneyAuth: fb314f645566841d3fe11a877794dde5e7589b2a
   SPaySDK: 1015f868b6e9255457704cd6a3d051829263661a
-  YandexMobileMetrica: f5368ee93f286c793d73b58da00929babfc897c1
-  yookassa_payments_flutter: 7c9be9ba6fdae53b98b2e715a3d80d42e2bdd8ff
-  YooKassaPayments: 854eed87863761c6e9c164ece203f125e1bffb64
-  YooKassaPaymentsApi: b6172fa43e58e79ad730c3ccc2692471cee6ea9c
-  YooKassaWalletApi: cbb352525bfe89fd2ad52635062f79f8bbbc23ec
-  YooMoneyCoreApi: 0e5c123a9c981ea2384b86986d3ba64a096431f9
-  YooMoneySessionProfiler: 1a19bed99feca98c04e2a906908f91a7d5db408d
-  YooMoneyUI: 94078f98dc65bee756c215a14fbf70ad3469f289
+  yookassa_payments_flutter: f36a2380714a41ecd238667db3768052ab1c2240
+  YooKassaPayments: 1f1e5daab12dd05b11e56fe568c71b5a43b77b14
+  YooKassaPaymentsApi: 88ecca54eaf785787eeb1682f352016757ec0cdc
+  YooKassaWalletApi: 034a9d4f122557377ae3b9284e6292603fb38e6b
+  YooMoneyCoreApi: f53a22898878aab2f07449351a8a08f4918a6100
+  YooMoneySessionProfiler: f4ac772cb6675f1200efbde75d69126eb4c867e6
+  YooMoneyUI: f91e3e4bd1d8834bef169e7e8bd463c6a9e82944
 
-PODFILE CHECKSUM: 6abfb72a0d401d5c53824cfe614a85f37a1a3040
+PODFILE CHECKSUM: d83a67078f664dc9b52d32635e3e488dc83a611b
 
 COCOAPODS: 1.14.2

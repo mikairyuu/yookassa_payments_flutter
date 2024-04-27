@@ -1,4 +1,10 @@
 # YooKassa Payments SDK
+[![Version](https://img.shields.io/pub/v/yookassa_payments_flutter)](https://pub.dev/packages/yookassa_payments_flutter)
+![Version](https://img.shields.io/badge/minSdkVersion-24-blue)
+![Version](https://img.shields.io/badge/AGP-8.2.2-blue)
+![Version](https://img.shields.io/badge/Java-17-blue)
+![Version](https://img.shields.io/badge/Kotlin-1.9.22-blue)
+![Version](https://img.shields.io/badge/iOS-14.0-orange)
 
 Библиотека позволяет встроить прием платежей в мобильные приложения на Flutter и работает как дополнение к API ЮKassa.\
 В мобильный SDK входят готовые платежные интерфейсы (форма оплаты и всё, что с ней связано).\
@@ -85,7 +91,7 @@ source 'https://git.yoomoney.ru/scm/sdk/cocoa-pod-specs.git'
 
 ```dart
 var clientApplicationKey = "<Ключ для клиентских приложений>";
-var amount = Amount(value: 999.9, currency: Currency.rub);
+var amount = Amount(value: "999.9", currency: Currency.rub);
 var shopId = "<Идентификатор магазина в ЮKassa)>";
 var tokenizationModuleInputData =
           TokenizationModuleInputData(clientApplicationKey: clientApplicationKey,
@@ -622,7 +628,7 @@ func didFinishConfirmation(paymentMethodType: PaymentMethodType) {
 1. Сконфигурировать объект с типом `TestModeSettings(paymentAuthorizationPassed, cardsCount, charge, enablePaymentError)`.
 
 ```dart
-var testModeSettings = TestModeSettings(true, 5, Amount(value: 999, currency: .rub), false);
+var testModeSettings = TestModeSettings(true, 5, Amount(value: "999", currency: Currency.rub), false);
 ```
 
 2. Передать его в `TokenizationModuleInputData` в параметре `testModeSettings:`

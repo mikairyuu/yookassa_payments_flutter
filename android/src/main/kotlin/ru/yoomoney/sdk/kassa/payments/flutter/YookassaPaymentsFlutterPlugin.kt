@@ -308,7 +308,7 @@ private fun MockConfiguration(data: Map<String, Object>): MockConfiguration? {
   val completeWithError = testModeSettings["enablePaymentError"] as Boolean
   val linkedCardsCount = testModeSettings["cardsCount"] as Int
   val serviceFeeMap: HashMap<String, Object> = testModeSettings["charge"] as HashMap<String, Object>
-  val serviceFee = Amount(BigDecimal(serviceFeeMap["value"] as Double), Currency.getInstance(serviceFeeMap["currency"] as String))
+  val serviceFee = Amount(BigDecimal(serviceFeeMap["value"] as String), Currency.getInstance(serviceFeeMap["currency"] as String))
 
   return MockConfiguration(completeWithError, paymentAuthPassed, linkedCardsCount, serviceFee)
 }

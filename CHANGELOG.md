@@ -5,6 +5,14 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [1.4.0] (27-04-2024)
+
+* Android changes: update dependencies - java 17, kotlin 1.9.22, AGP 8.2.2, min sdk version raised to 24, update native version MSDK to 6.11.0, documentation updates. iOS changes: min iOS version up to 14, update native version MSDK to 6.16.0 with privacy manifest
+
+## [1.3.1] (26-03-2024)
+
+* Added Jenkinsfile
+
 ## [1.3.0] (22-12-2023)
 
 * Update payment method via Sber

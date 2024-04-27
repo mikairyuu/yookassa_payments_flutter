@@ -30,7 +30,7 @@ class YookassaPaymentsFlutter {
   }
 
   static Future<void> confirmation(String url, PaymentMethod? paymentMethod,
-      String? clientApplicationKey, String? shopId) async {
+      String clientApplicationKey, String shopId) async {
     var inputData = {
       'url': url,
       'paymentMethod': paymentMethod?.name,
