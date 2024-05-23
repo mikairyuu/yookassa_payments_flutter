@@ -62,23 +62,24 @@ PODS:
     - AppMetricaCoreUtils (= 5.2.0)
     - AppMetricaLog (= 5.2.0)
   - Flutter (1.0.0)
-  - FMobileSdk (2.0.0.1230)
+  - FMobileSdk (2.0.0-1231)
   - FunctionalSwift (2.0.7)
   - KSCrash/Recording (1.17.0):
     - KSCrash/Recording/Tools (= 1.17.0)
   - KSCrash/Recording/Tools (1.17.0)
-  - MoneyAuth (10.13.0):
+  - MoneyAuth (10.13.3):
     - FMobileSdk
     - FunctionalSwift (~> 2.0)
     - YooMoneyCoreApi (~> 3.1)
     - YooMoneySessionProfiler (~> 5.0)
     - YooMoneyUI (~> 7.7)
   - SPaySDK (1.0.9)
-  - yookassa_payments_flutter (1.3.1):
+  - yookassa_payments_flutter (1.4.0):
     - Flutter
-    - YooKassaPayments (= 6.16.0)
-  - YooKassaPayments (6.16.0):
+    - YooKassaPayments (= 6.18.0)
+  - YooKassaPayments (6.18.0):
     - AppMetricaAnalytics (~> 5.2.0)
+    - FMobileSdk (~> 2.0.0-1231)
     - MoneyAuth (~> 10.13.0)
     - SPaySDK (~> 1.0.8)
     - YooKassaPaymentsApi (~> 2.22.0)
@@ -96,7 +97,7 @@ PODS:
     - FunctionalSwift (~> 2.0)
   - YooMoneySessionProfiler (5.0.4):
     - FMobileSdk
-  - YooMoneyUI (7.7.5):
+  - YooMoneyUI (7.7.6):
     - FunctionalSwift
 
 DEPENDENCIES:
@@ -158,19 +159,19 @@ SPEC CHECKSUMS:
   AppMetricaStorageUtils: 4de179f2354946734cc7c407322398f5276e3305
   AppMetricaWebKit: 271bdf19ac5473df925213ec80d330805ed96818
   Flutter: f04841e97a9d0b0a8025694d0796dd46242b2854
-  FMobileSdk: 8c49b5c8207eb4b92df761bbf16486f03bdac6ac
+  FMobileSdk: a7b555198f03785af1a6064db57545c49694c1cf
   FunctionalSwift: 89f68db7d8cf103a4dc0878fbaa007a2a5532485
   KSCrash: 593ec373759e4c1bce381421a627326a20d2dc66
-  MoneyAuth: fb314f645566841d3fe11a877794dde5e7589b2a
+  MoneyAuth: b845b798d4733292fb573de5e97f3dab06e28fc0
   SPaySDK: 1015f868b6e9255457704cd6a3d051829263661a
-  yookassa_payments_flutter: f36a2380714a41ecd238667db3768052ab1c2240
-  YooKassaPayments: 1f1e5daab12dd05b11e56fe568c71b5a43b77b14
+  yookassa_payments_flutter: d9d7737054c84600e89105137c072b318a3b2e2b
+  YooKassaPayments: 547d511299530a400f33303e48f337ce4d0a7aa8
   YooKassaPaymentsApi: 88ecca54eaf785787eeb1682f352016757ec0cdc
   YooKassaWalletApi: 034a9d4f122557377ae3b9284e6292603fb38e6b
   YooMoneyCoreApi: f53a22898878aab2f07449351a8a08f4918a6100
   YooMoneySessionProfiler: f4ac772cb6675f1200efbde75d69126eb4c867e6
-  YooMoneyUI: f91e3e4bd1d8834bef169e7e8bd463c6a9e82944
+  YooMoneyUI: 7332c851831398441dc841bb6474322ee5b8883d
 
 PODFILE CHECKSUM: d83a67078f664dc9b52d32635e3e488dc83a611b
 
-COCOAPODS: 1.14.2
+COCOAPODS: 1.15.2

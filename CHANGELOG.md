@@ -5,6 +5,12 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [1.5.0] (23-05-2024)
+
+* Update dependencies;
+* Using AppMetrica reporters
+* Update NSPrivacyTrackingDomains value
+
 ## [1.4.0] (27-04-2024)
 
 * Android changes: update dependencies - java 17, kotlin 1.9.22, AGP 8.2.2, min sdk version raised to 24, update native version MSDK to 6.11.0, documentation updates. iOS changes: min iOS version up to 14, update native version MSDK to 6.16.0 with privacy manifest
