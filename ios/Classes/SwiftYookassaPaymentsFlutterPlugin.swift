@@ -61,8 +61,6 @@ public class SwiftYookassaPaymentsFlutterPlugin: NSObject, FlutterPlugin {
           paymentMethod = .yooMoney
         case "sberbank":
           paymentMethod = .sberbank
-        case "applePay":
-          paymentMethod = .applePay
         case "sbp":
           paymentMethod = .sbp
         default: break
@@ -113,6 +111,18 @@ public class SwiftYookassaPaymentsFlutterPlugin: NSObject, FlutterPlugin {
 }
 
 extension FlutterViewController: TokenizationModuleOutput {
+    public func didFailConfirmation(error: YooKassaPayments.YooKassaPaymentsError?) {
+        DispatchQueue.main.async {
+            if let controller = yoomoneyController {
+                controller.dismiss(animated: true)
+            }
+        }
+        guard let result = flutterResult else { return }
+        if let error = error {
+            result("{\"status\":\"error\", \"error\": \"\(error.localizedDescription)\"}")
+        }
+    }
+    
 
     public func tokenizationModule(
         _ module: TokenizationModuleInput,
@@ -135,7 +145,7 @@ extension FlutterViewController: TokenizationModuleOutput {
         on module: TokenizationModuleInput,
         with error: YooKassaPaymentsError?
     ) {
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.async {
             if let controller = yoomoneyController {
                 controller.dismiss(animated: true)
             }
@@ -150,7 +160,7 @@ extension FlutterViewController: TokenizationModuleOutput {
 
     public func didFinishConfirmation(paymentMethodType: PaymentMethodType) {
         guard let result = flutterResult else { return }
-        DispatchQueue.main.async { [weak self] in
+        DispatchQueue.main.async {
             if let controller = yoomoneyController {
                 controller.dismiss(animated: true)
             }
@@ -266,7 +276,6 @@ extension TokenizationModuleInputData: Decodable {
             gatewayId: gatewayId,
             tokenizationSettings: tokenizationSettings,
             testModeSettings: testModeSettings,
-            applePayMerchantIdentifier: applePayMerchantIdentifier,
             returnUrl: returnUrl,
             isLoggingEnabled: isLoggingEnabled,
             userPhoneNumber: userPhoneNumber,
@@ -372,8 +381,6 @@ extension TokenizationSettings: Decodable {
                 paymentTypes.insert(.yooMoney)
             case "PaymentMethod.sberbank":
                 paymentTypes.insert(.sberbank)
-            case "PaymentMethod.applePay":
-                paymentTypes.insert(.applePay)
             case "PaymentMethod.sbp":
                 paymentTypes.insert(.sbp)
             default: break

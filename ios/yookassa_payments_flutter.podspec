@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'yookassa_payments_flutter'
-  s.version          = '1.4.0'
+  s.version          = '1.6.0'
   s.summary          = 'Flutter SDK from yoomoney'
   s.description      = <<-DESC
 Flutter SDK from yoomoney
@@ -11,7 +11,7 @@ Flutter SDK from yoomoney
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'YooKassaPayments', '6.18.0'
+  s.dependency 'YooKassaPayments', '7.2.0'
 
   s.platform = :ios, '14.0'
 

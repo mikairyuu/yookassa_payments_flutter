@@ -5,6 +5,13 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [1.7.0] (14-10-2024)
+
+* Update mSDK version
+* iOS to 7.2.0
+* Android to 7.0.1
+* Update Android compileSdkVersion to 34
+
 ## [1.5.0] (23-05-2024)
 
 * Update dependencies;
