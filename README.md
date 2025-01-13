@@ -283,15 +283,31 @@ func application(
 2. Получите токен.
 3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
-### SberPay
+### SberPay (iOS)
+
+С помощью SDK можно провести и подтвердить платеж через актуальное приложение Сбера, если оно установленно.
+
+#### Обратите внимание
+Для работы SberPay требуется уникальная URL-scheme зарегистрированная в системе Сбера. Запросите такую схему у нашего менеджера поддержки по адресу b2b_support@yoomoney.ru.
+
+Полученную от поддержки схему нужно зарегистрировать в файле вашего проекта, как показано ниже:
+<img src="assets/images/sberpay-reg-url-scheme.png" width="70%">
+
+А также передайте ее в `TokenizationModuleInputData` в параметре `applicationScheme`.
+
+```dart
+var tokenizationModuleInputData = TokenizationModuleInputData(
+    ...
+    applicationScheme: "sdkvzcyfyexmpl://"
+```
 
 Чтобы провести платёж:
 
-1. При создании `TokenizationModuleInputData` в `TokenizationSettings` передайте значение `PaymentMethodTypes.sberbank`.
+1. При создании `TokenizationModuleInputData` передайте значение `.sberbank` в `paymentMethodTypes`.
 2. Получите токен.
 3. [Создайте платеж](https://yookassa.ru/developers/api#create_payment) с токеном по API ЮKassa.
 
-Для подтверждения платежа через приложение СберБанк Онлайн:
+Для подтверждения платежа через приложение Сбербанка:
 
 1. В `AppDelegate` импортируйте зависимость `YooKassaPayments`:
 
@@ -305,7 +321,7 @@ func application(
 func application(
     _ application: UIApplication,
     open url: URL,
-    sourceApplication: String?, 
+    sourceApplication: String?,
     annotation: Any
 ) -> Bool {
     return YKSdk.shared.handleOpen(
@@ -313,14 +329,11 @@ func application(
         sourceApplication: sourceApplication
     )
 }
+```
 
 3. В `Info.plist` добавьте следующие строки:
 
 ```plistbase
-<key>LSApplicationQueriesSchemes</key>
-<array>
-    <string>sberpay</string>
-</array>
 <key>CFBundleURLTypes</key>
 <array>
     <dict>
@@ -336,7 +349,91 @@ func application(
 </array>
 ```
 
-где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной оплаты с помощью `SberPay`.
+где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной авторизации с помощью `SberPay`.
+
+4. Добавить в `Info.plist` расширенные настройки для https-соединений к сервисам Сбера
+
+```
+<key>NSAppTransportSecurity</key>
+<dict>
+    <key>NSExceptionDomains</key>
+    <dict>
+    <key>gate1.spaymentsplus.ru</key>
+    <dict>
+       <key>NSExceptionAllowsInsecureHTTPLoads</key>
+       <true/>
+    </dict>
+    <key>ift.gate2.spaymentsplus.ru</key>
+    <dict>
+       <key>NSExceptionAllowsInsecureHTTPLoads</key>
+       <true/>
+    </dict>
+    <key>cms-res.online.sberbank.ru</key>
+       <dict>
+           <key>NSExceptionAllowsInsecureHTTPLoads</key>
+           <true/>
+       </dict>
+    </dict>
+</dict>
+```
+
+также, возникает требование расширить доступ приложения к данным пользователя для обеспечения безопасности проведения платежей
+
+```
+<key>NSFaceIDUsageDescription</key>
+<string>Так вы подтвердите, что именно вы выполняете вход</string>
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Данные о местонахождении собираются и отправляются на сервер для безопасного проведения оплаты</string>
+```
+
+5. Обработайте результат выполнения `await YookassaPaymentsFlutter.confirmation`. Если в результате нет ошибки, значит процесс подтверждения будет пройден или пропущен пользователем. На следующем шаге для проверки статуса платежа (прошел ли пользователь подтверждение успешно или нет) используйте [YooKassa API](https://yookassa.ru/developers/api#get_payment)
+(см. [Настройка подтверждения платежа](#настройка-подтверждения-платежа)).
+
+### SberPay (Android)
+
+Для подтверждения платежа при оплате через SberPay необходимо:
+1. вызвать метод `await YookassaPaymentsFlutter.confirmation`;
+2. обработать полученный результат;
+
+Входные параметры для `await YookassaPaymentsFlutter.confirmation`:
+
+Обязательные параметры метода:
+- url (String) - URL для перехода на экран подтверждения платежа через SberPay;
+- paymentMethod (PaymentMethodType) - выбранный тип платежного метода (тот, что был получен в методе `createTokenizationResult()`, (см. [Получить результат токенизации](#получить-результат-токенизации)) .
+- clientApplicationKey - ключ для клиентских приложений из личного кабинета ЮKassa ([раздел Настройки — Ключи API](https://yookassa.ru/my/api-keys-settings))
+- shopId - идентификатор магазина ЮKassa ([раздел Организации](https://yookassa.ru/my/company/organization)
+
+Возможные типы результата проведения подтверждения через SberPay:
+
+- Activity.RESULT_OK - сообщает о том, что процесс подтверждения через SberPay завершён, но не несет информацию о том, что процесс завершился успешно. После получения результата рекомендуется запросить статус платежа;
+- Activity.RESULT_CANCELED - прохождение подтверждения через SberPay было отменено (например, пользователь нажал на кнопку "назад" во время процесса);
+- Checkout.RESULT_ERROR - не удалось пройти подтверждение через SberPay.
+
+**Запуск SberPay и получение результата**
+
+<details open>
+
+```dart
+var res = await YookassaPaymentsFlutter.confirmation(
+    controller.text,
+    result.paymentMethodType,
+    config.clientApplicationKey,
+    config.shopId
+);
+showDialog(
+    context: context,
+    builder: (context) => const AlertDialog(content: Text("Confirmation process is done"))
+);
+```
+**Запрос разрешений﻿**
+
+Для работы SberPaySDK также запрашивает определенные разрешения, которые **не являются обязательными**, но повышают шанс успешной оплаты. Актуальный список разрешений [по ссылке](https://developers.sber.ru/docs/ru/sberpay-sdk/androidsdk/start-sdk#zapros-razresheniy)
+
+```xml
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_UPDATES" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+```
 
 ### SBP
 

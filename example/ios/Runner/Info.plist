@@ -31,8 +31,38 @@
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>yoomoneyauth</string>
-        <string>sberpay</string>
+		<string>sbolpay</string>
+		<string>sbolidexternallogin</string>
+		<string>sberbankidexternallogin</string>
     </array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>cms-res.online.sberbank.ru</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>gate1.spaymentsplus.ru</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>ift.gate2.spaymentsplus.ru</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+			<key>sberbank.ru</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -48,5 +78,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Данные Bluetooth собираются и отправляются на сервер для безопасного проведения оплаты</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>Данные Bluetooth собираются и отправляются на сервер для безопасного проведения оплаты</string>
 </dict>
 </plist>

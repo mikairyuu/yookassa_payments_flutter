@@ -5,6 +5,11 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [1.7.1] (13-01-2025)
+
+* Up android native version to 7.0.2
+* Update SberPay documentation
+
 ## [1.7.0] (14-10-2024)
 
 * Update mSDK version
