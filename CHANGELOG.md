@@ -5,6 +5,12 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [1.8.0] (01-04-2025)
+
+* Up android native version to 7.1.0
+* Up iOS to 7.4.0
+* Migrate to the Plugin DSL
+
 ## [1.7.1] (13-01-2025)
 
 * Up android native version to 7.0.2

@@ -78,9 +78,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Данные Bluetooth собираются и отправляются на сервер для безопасного проведения оплаты</string>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Данные Bluetooth собираются и отправляются на сервер для безопасного проведения оплаты</string>
+    <key>NSFaceIDUsageDescription</key>
+    <string>Так вы подтвердите, что именно вы выполняете вход</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Данные о местонахождении собираются и отправляются на сервер для безопасного проведения оплаты</string>
 </dict>
 </plist>

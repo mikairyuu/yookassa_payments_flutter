@@ -499,27 +499,7 @@ func application(
 
 где `examplescheme` - схема для открытия вашего приложения, которую вы указали в `applicationScheme` при создании `TokenizationModuleInputData`. Через эту схему будет открываться ваше приложение после успешной оплаты с помощью `SberPay`.
 
-4. В `Info.plist` перечислить url-схемы приложений приоритетных для вас банков
-
-SDK пользователю отображается список банков, поддерживающих оплату `СБП`. При выборе конкретного банка из списка произойдет переход в соответствующее банковское приложение.
-Список банков в SDK сформирован на основе ответа [НСПК](https://qr.nspk.ru/proxyapp/c2bmembers.json). Он содержит более тысячи банков, и для удобства SDK в первую очередь отображает список популярных банков, которые чаще всего используют для оплаты. Для проверки факта установки приложения на телефоне мы используем системную функцию [canOpenURL(:)](https://developer.apple.com/documentation/uikit/uiapplication/1622952-canopenurl). Данная функция возвращает корректный ответ только для схем добавленных в `Info.plist` с ключом `LSApplicationQueriesSchemes`.
-Поэтому для корректного отображения списка популярных банков вам необходимо внести в `Info.plist` их url-схемы:
-
-```plistbase
-<key>LSApplicationQueriesSchemes</key>
-<array>
-    <string>bank100000000111</string> // Сбербанк
-    <string>bank100000000004</string> // Тинькофф
-    <string>bank110000000005</string> // ВТБ
-    <string>bank100000000008</string> // Альфа
-    <string>bank100000000007</string> // Райфайзен
-    <string>bank100000000015</string> // Открытие
-</array>
-```
-
-Если список не добавлять в `Info.plist`, SDK сразу отобразит полный список банков поддерживающих оплату `СБП`.
-
-5. Добавьте уникальную схему в `build.gradle`
+4. Добавьте уникальную схему в `build.gradle`
 Для добавления уникальной схемы диплинка нужно добавить в ваш файл `build.gradle` в блок android.defaultConfig строку `resValue "string", "ym_app_scheme", "exampleapp"`
 ```
 android {
@@ -536,7 +516,7 @@ android {
 ```
 Где `exampleapp` - это уникальная схема диплинка вашего приложения.
 
-6. Для подтверждения платежа при оплате через СБП необходимо запустить сценарий подтверждения:
+5. Для подтверждения платежа при оплате через СБП необходимо запустить сценарий подтверждения:
 
 ```dart
 var clientApplicationKey = "<Ключ для клиентских приложений>";
@@ -547,7 +527,7 @@ await YookassaPaymentsFlutter.confirmation(confirmationUrl, PaymentMethod.sbp, c
 ```
 `confirmationUrl` вы получите в ответе от API ЮKassa при [создании платежа](https://yookassa.ru/developers/api#create_payment); он имеет вид   "https://qr.nspk.ru/id?type=&bank=&sum=&cur=&crc=&payment_id="
 
-7. После того, как пользователь пройдет процесс подтверждения платежа или пропустит его будет вызван метод протокола `TokenizationModuleOutput`. Обработайте в нем результат подтверждения:
+6. После того, как пользователь пройдет процесс подтверждения платежа или пропустит его будет вызван метод протокола `TokenizationModuleOutput`. Обработайте в нем результат подтверждения:
 
 ```swift
 func didFinishConfirmation(paymentMethodType: PaymentMethodType) {
@@ -771,6 +751,12 @@ var result = await YookassaPaymentsFlutter.bankCardRepeat(savedBankCardModuleInp
 ```
 
 3. Получите token в `TokenizationResult`
+
+## FAQ
+
+1. В iOS в виджете  для ввода реквизитов банковской карты часть полей отображается на русском, а часть на английском языке. Есть какая-то возможность настроить работу виджета так, чтобы надписи отображались на установленном в iOS языке?
+
+Да. Настройте правильно ключи локализации для флаттер проекта. Например en и ru_RU. Подробнее описано здесь https://localizely.com/i18n-questions/flutter/why-flutter-localization-does-not-work-on-ios-platform/
 
 ## Лицензия
 

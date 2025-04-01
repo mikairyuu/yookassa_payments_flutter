@@ -1,17 +1,9 @@
-group 'ru.yoomoney.sdk.kassa.payments.flutter'
-
-buildscript {
-    ext.kotlin_version = '1.9.22'
-    repositories {
-        google()
-        mavenCentral()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:8.2.2'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-    }
+plugins {
+    id "com.android.library"
+    id "kotlin-android"
 }
+
+group 'ru.yoomoney.sdk.kassa.payments.flutter'
 
 rootProject.allprojects {
     repositories {
@@ -19,9 +11,6 @@ rootProject.allprojects {
         mavenCentral()
     }
 }
-
-apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
 
 android {
     namespace "ru.yoomoney.sdk.kassa.payments.flutter"
@@ -52,7 +41,7 @@ android {
 }
 
 dependencies {
-    implementation 'ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:7.0.2'
+    implementation 'ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:7.1.0'
 }
 
 configurations.implementation {
