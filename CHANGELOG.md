@@ -5,6 +5,10 @@
 ### NEXT_VERSION_DESCRIPTION_BEGIN
 ### NEXT_VERSION_DESCRIPTION_END
 
+## [1.9.0] (09-06-2025)
+
+* update native android lib to 7.1.1, update Appmetrica, fix compatibility issue with Flutter 3.29
+
 ## [1.8.0] (01-04-2025)
 
 * Up android native version to 7.1.0
