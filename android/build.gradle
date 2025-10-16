@@ -41,7 +41,9 @@ android {
 }
 
 dependencies {
-    implementation 'ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:7.1.1'
+    implementation 'ru.yoomoney.sdk.kassa.payments:yookassa-android-sdk:8.1.0'
+    implementation("com.vk:android-sdk-core:4.1.0")
+    implementation("com.vk:android-sdk-api:4.1.0")
 }
 
 configurations.implementation {
